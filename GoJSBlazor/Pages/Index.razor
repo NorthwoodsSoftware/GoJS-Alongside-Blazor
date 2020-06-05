@@ -1,0 +1,12 @@
+﻿@page "/"
+@inherits GoJSMinimal
+
+<h1>GoJS / Blazor Minimal Sample</h1>
+
+<div id="myDiagramDiv" style="height: 400px; width: 400px; border: 1px solid black;"></div>
+
+<textarea id="mySavedModel"></textarea>
+
+<button class="btn btn-success" @onclick="SaveDiagram">Save</button>
+<button class="btn btn-success" @onclick="LoadDiagram">Load</button>
+

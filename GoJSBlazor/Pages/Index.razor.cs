@@ -4,27 +4,28 @@ using System;
 
 namespace GoJSBlazor.Pages
 {
-    public partial class GoJSMinimal : ComponentBase
+  public partial class GoJSMinimal : ComponentBase
+  {
+    [Inject] IJSRuntime JSRuntime { get; set; }
+
+    protected async override void OnAfterRender(bool firstRender)
     {
-        [Inject] IJSRuntime JSRuntime { get; set; }
-
-        protected async override void OnAfterRender(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await JSRuntime.InvokeAsync<string>("init");
-            }
-        }
-
-        protected async void SaveDiagram()
-        {
-            await JSRuntime.InvokeAsync<string>("saveDiagram");
-        }
-
-        protected async void LoadDiagram()
-        {
-            await JSRuntime.InvokeAsync<string>("loadDiagram");
-        }
-
+      if (firstRender)
+      {
+        // This calls the script in gojs-scripts.js
+        await JSRuntime.InvokeAsync<string>("initGoJS");
+      }
     }
+
+    protected async void SaveDiagram()
+    {
+      await JSRuntime.InvokeAsync<string>("saveDiagram");
+    }
+
+    protected async void LoadDiagram()
+    {
+      await JSRuntime.InvokeAsync<string>("loadDiagram");
+    }
+
+  }
 }

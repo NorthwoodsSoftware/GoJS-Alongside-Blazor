@@ -1,4 +1,7 @@
-﻿function init() {
+﻿// This would be called by a razor page that contains myDiagramDiv via an
+// JSRuntime.InvokeAsync<string>("initGoJS");
+// In this project, Index.razor calls it from within OnAfterRender in Index.razor.cs
+function initGoJS() {
 
 
     var $ = go.GraphObject.make;  // for conciseness in defining templates

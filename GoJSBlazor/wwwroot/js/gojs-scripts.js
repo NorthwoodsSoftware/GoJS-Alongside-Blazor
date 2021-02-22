@@ -2,8 +2,6 @@
 // JSRuntime.InvokeAsync<string>("initGoJS");
 // In this project, Index.razor calls it from within OnAfterRender in Index.razor.cs
 function initGoJS() {
-
-
     var $ = go.GraphObject.make;  // for conciseness in defining templates
 
     myDiagram = $(go.Diagram, "myDiagramDiv",  // create a Diagram for the DIV HTML element
@@ -14,6 +12,7 @@ function initGoJS() {
     // define a simple Node template
     myDiagram.nodeTemplate =
         $(go.Node, "Auto",  // the Shape will go around the TextBlock
+            new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
             $(go.Shape, "RoundedRectangle", { strokeWidth: 0, fill: "white" },
                 // Shape.fill is bound to Node.data.color
                 new go.Binding("fill", "color")),

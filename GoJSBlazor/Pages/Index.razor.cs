@@ -17,12 +17,12 @@ namespace GoJSBlazor.Pages
       }
     }
 
-    protected async void SaveDiagram()
+    protected async void Save()
     {
       await JSRuntime.InvokeAsync<string>("saveDiagram");
     }
 
-    protected async void LoadDiagram()
+    protected async void Load()
     {
       await JSRuntime.InvokeAsync<string>("loadDiagram");
     }

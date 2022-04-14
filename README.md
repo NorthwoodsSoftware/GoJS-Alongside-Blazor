@@ -9,6 +9,10 @@ GoJS is used in `Index.razor.cs`, with the Diagram div in `Index.razor`. GoJS is
 
 There are two buttons on `Index.razor` that demonstrate saving and loading the diagram, via JS Interop.
 
+## GoDiagram
+
+This project uses GoJS, and all GoJS code must be written in JavaScript or TypeScript. If you wish to only author diagrams in C#, and to use static images in your Blazor app, it is possible to use [GoDiagram](https://godiagram.com/?gojsalongsideblazor) instead. [GoDiagram](https://godiagram.com/?gojsalongsideblazor) is a C# library based on the GoJS API for WinForms, or headless C# environments.
+
 ## Support
 
 Northwoods Software offers a month of free developer-to-developer support for GoJS to help you get started on your project.

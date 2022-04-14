@@ -11,7 +11,7 @@ There are two buttons on `Index.razor` that demonstrate saving and loading the d
 
 ## GoDiagram
 
-This project uses GoJS, and all GoJS code must be written in JavaScript or TypeScript. If you wish to only author diagrams in C#, and to use static images in your Blazor app, it is possible to use [GoDiagram](https://godiagram.com/?gojsalongsideblazor) instead. [GoDiagram](https://godiagram.com/?gojsalongsideblazor) is a C# library based on the GoJS API for WinForms, or headless C# environments.
+This project uses GoJS, and all GoJS code must be written in JavaScript or TypeScript. If you wish to only author diagrams in C#, and to use static images in your Blazor app, it is possible to use [GoDiagram](https://godiagram.com/?gojsalongsideblazor) instead. [GoDiagram](https://godiagram.com/?gojsalongsideblazor) is a C# library based on the GoJS API for WinForms and headless C# environments.
 
 ## Support
 

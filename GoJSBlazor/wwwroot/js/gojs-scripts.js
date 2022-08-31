@@ -1,12 +1,32 @@
 ﻿// This would be called by a razor page that contains myDiagramDiv via an
-// JSRuntime.InvokeAsync<string>("initGoJS");
+// JSRuntime.InvokeAsync<string>("initGoJS", ObjectRef);
 // In this project, Index.razor calls it from within OnAfterRender in Index.razor.cs
-function initGoJS() {
+function initGoJS(dotNetRef) {
     var $ = go.GraphObject.make;  // for conciseness in defining templates
 
     myDiagram = $(go.Diagram, "myDiagramDiv",  // create a Diagram for the DIV HTML element
         {
-            "undoManager.isEnabled": true  // enable undo & redo
+            "undoManager.isEnabled": true,  // enable undo & redo
+            "ChangedSelection": function (e) {
+                var sel = e.diagram.selection.first();
+                if (!(sel instanceof go.Node)) return;
+                dotNetRef.invokeMethodAsync('InspectObject', JSON.stringify(sel.data));
+            },
+            "ModelChanged": function (e) {
+                if (e.isTransactionFinished && e.model && !e.model.isReadOnly) {
+                    var sel = myDiagram.selection.first();
+                    if (!(sel instanceof go.Node)) return;
+                    var chgs = e.model.toIncrementalData(e);
+                    if (chgs !== null) {
+                        chgs.modifiedNodeData.forEach((nd) => {
+                            var key = e.model.getKeyForNodeData(nd); // nd.key;
+                            if (myDiagram.findNodeForKey(key) === sel) {
+                                dotNetRef.invokeMethodAsync('InspectObject', JSON.stringify(nd));
+                            }
+                        })
+                    }
+                }
+            }
         });
 
     // define a simple Node template
@@ -25,20 +45,23 @@ function initGoJS() {
     // but use the default Link template, by not setting Diagram.linkTemplate
 
     // create the model data that will be represented by Nodes and Links
-    myDiagram.model = new go.GraphLinksModel(
-        [
-            { key: "Alpha", color: "lightblue" },
-            { key: "Beta", color: "orange" },
-            { key: "Gamma", color: "lightgreen" },
-            { key: "Delta", color: "pink" }
-        ],
-        [
-            { from: "Alpha", to: "Beta" },
-            { from: "Alpha", to: "Gamma" },
-            { from: "Beta", to: "Beta" },
-            { from: "Gamma", to: "Delta" },
-            { from: "Delta", to: "Alpha" }
-        ]);
+    myDiagram.model =
+        $(go.GraphLinksModel, {
+            linkKeyProperty: "key",
+            nodeDataArray: [
+                { key: "Alpha", color: "lightblue" },
+                { key: "Beta", color: "orange" },
+                { key: "Gamma", color: "lightgreen" },
+                { key: "Delta", color: "pink" }
+            ],
+            linkDataArray: [
+                { from: "Alpha", to: "Beta" },
+                { from: "Alpha", to: "Gamma" },
+                { from: "Beta", to: "Beta" },
+                { from: "Gamma", to: "Delta" },
+                { from: "Delta", to: "Alpha" }
+            ]
+        });
 }
 
 function saveDiagram() {

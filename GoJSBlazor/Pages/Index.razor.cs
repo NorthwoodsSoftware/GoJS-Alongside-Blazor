@@ -7,14 +7,22 @@ namespace GoJSBlazor.Pages
   public partial class GoJSMinimal : ComponentBase
   {
     [Inject] IJSRuntime JSRuntime { get; set; }
+    private DotNetObjectReference<GoJSMinimal> ObjectRef;
 
     protected async override void OnAfterRender(bool firstRender)
     {
       if (firstRender)
       {
+        ObjectRef = DotNetObjectReference.Create(this);
         // This calls the script in gojs-scripts.js
-        await JSRuntime.InvokeAsync<string>("initGoJS");
+        await JSRuntime.InvokeAsync<string>("initGoJS", ObjectRef);
       }
+    }
+
+    [JSInvokable]
+    public void InspectObject(string jsonObj)
+    {
+            Console.WriteLine(jsonObj);
     }
 
     protected async void Save()
@@ -26,6 +34,5 @@ namespace GoJSBlazor.Pages
     {
       await JSRuntime.InvokeAsync<string>("loadDiagram");
     }
-
   }
 }

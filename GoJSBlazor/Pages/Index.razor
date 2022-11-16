@@ -1,15 +1,14 @@
 ﻿@page "/"
-@inherits GoJSMinimal
 
 <h1>GoJS / Blazor Minimal Sample</h1>
 
 <div id="myDiagramDiv" style="height: 400px; width: 400px; border: 1px solid black;"></div>
 
 <div>
-    <p>This sample project shows how one might use GoJS in a <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">Blazor</a> project.</p>
-    <p>All GoJS JavaScript code is stored in the <code>wwwroot/js</code> folder, in <code>gojs-scripts</code>. Then, functions from that file are called in <code>Index.razor.cs</code>, using Blazor's <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-javascript-from-dotnet?view=aspnetcore-3.1">JSInterop</a>.</p>
-    <p>In this project specifically, a JavaScript initialization function that sets up some GoJS Node and Link templates and data is called on the Blazor lifecycle hook <code>OnAfterRender</code>.</p>
-    <p>There are also two buttons whose <code>onclick</code> functions use JSInterop to call save and load JavaScript functions that save or load the GoJS Diagram's model data. Press "Save", then delete some Nodes or Links, then press "Load" to see these functions in action.</p>
+  <p>This sample project shows how one might use GoJS in a <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">Blazor</a> project.</p>
+  <p>All GoJS JavaScript code is stored in the <code>wwwroot/js</code> folder, in <code>gojs-scripts</code>. Then, functions from that file are called in <code>Index.razor.cs</code>, using Blazor's <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-javascript-from-dotnet?view=aspnetcore-3.1">JSInterop</a>.</p>
+  <p>In this project specifically, a JavaScript initialization function is called on the Blazor lifecycle hook <code>OnAfterRender</code>. It sets up some GoJS Node and Link templates and data.</p>
+  <p>There are also two buttons whose <code>onclick</code> functions use JSInterop to call save and load JavaScript functions that save or load the GoJS Diagram's model data. Press "Save", then delete some Nodes or Links, then press "Load" to see these functions in action.</p>
 </div>
 
 <button class="btn btn-primary" @onclick="Save">Save</button>
